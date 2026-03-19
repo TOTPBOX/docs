@@ -25,7 +25,7 @@ TOTPBOX provides TOTP (Time-based One-Time Password) authentication compliant wi
 ### Prerequisites
 
 - An active TOTPBOX account (sign up at [totpbox.com](https://totpbox.com))
-- Your preferred platform: Web, iOS, Android, or API
+- Your preferred platform: Web or API
 
 ---
 
@@ -38,49 +38,15 @@ TOTPBOX provides TOTP (Time-based One-Time Password) authentication compliant wi
 3. Scan the QR code with any TOTP-compatible authenticator app
 4. Enter the 6-digit code to confirm and enable 2FA
 
-### API Setup
-
-```bash
-# Generate a TOTP secret
-POST https://api.totpbox.com/v1/totp/generate
-Authorization: Bearer <YOUR_API_KEY>
-Content-Type: application/json
-
-{
-  "account": "user@example.com",
-  "issuer": "YourApp",
-  "digits": 6,
-  "period": 30
-}
-```
-
-**Response:**
-```json
-{
-  "secret": "BASE32ENCODEDSECRET",
-  "otpauth_url": "otpauth://totp/YourApp:user@example.com?secret=...",
-  "qr_code_url": "https://api.totpbox.com/v1/qr/..."
-}
-```
-
-### Verify a TOTP Code
-
-```bash
-POST https://api.totpbox.com/v1/totp/verify
-Authorization: Bearer <YOUR_API_KEY>
-Content-Type: application/json
-
-{
-  "secret": "BASE32ENCODEDSECRET",
-  "token": "123456"
-}
-```
-
 ---
 
 ## API Reference
 
-### Base URL
+> **Note:** The TOTPBOX REST API is currently under development and not yet publicly available.
+> This section documents the planned API design. Endpoints will be activated when the API launches.
+> Subscribe to releases or watch this repo to be notified.
+
+### Planned Base URL
 
 ```
 https://api.totpbox.com/v1
@@ -88,9 +54,9 @@ https://api.totpbox.com/v1
 
 ### Authentication
 
-All API requests require a Bearer token in the `Authorization` header.
+All API requests will require a Bearer token in the `Authorization` header.
 
-### Endpoints
+### Planned Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -100,7 +66,7 @@ All API requests require a Bearer token in the `Authorization` header.
 | `DELETE` | `/totp/{id}` | Revoke a TOTP secret |
 | `GET` | `/account/status` | Check account/API status |
 
-### Rate Limits
+### Planned Rate Limits
 
 | Plan | Requests/min |
 |---|---|
@@ -112,13 +78,12 @@ All API requests require a Bearer token in the `Authorization` header.
 
 ## Changelog
 
-### v1.0.0 — 2026-03-19
+### v0.1.0 — 2026-03-19 (Private Beta)
 
-- Initial public release
-- TOTP generate & verify endpoints
-- QR code generation
-- Web dashboard
-- iOS & Android apps
+- Platform infrastructure set up
+- Web dashboard (early access)
+- TOTP generation and verification — web interface only
+- REST API and mobile apps are in development
 
 ---
 
@@ -128,7 +93,10 @@ All API requests require a Bearer token in the `Authorization` header.
 A: Any RFC 6238-compliant authenticator works, including Google Authenticator, Authy, 1Password, Bitwarden, and others.
 
 **Q: What hash algorithm does TOTPBOX use?**  
-A: HMAC-SHA1 by default (RFC 4226 standard), with SHA-256 and SHA-512 options available on Pro and Enterprise plans.
+A: HMAC-SHA1 by default (RFC 4226 standard), with SHA-256 and SHA-512 planned for future releases.
+
+**Q: Is there a public API available?**  
+A: The REST API is currently in development. See the [API Reference](#api-reference) section for planned endpoints.
 
 **Q: How do I report a security vulnerability?**  
 A: See [SECURITY.md](https://github.com/TOTPBOX/security/blob/main/SECURITY.md) — please do **not** open a public issue.
@@ -144,4 +112,4 @@ A: See [SECURITY.md](https://github.com/TOTPBOX/security/blob/main/SECURITY.md) 
 
 ---
 
-<sub>&copy; 2026 TOTPBOX. Documentation is licensed under CC BY 4.0.</sub>
+<sub>&copy; 2026 TOTPBOX. See [LICENSE](./LICENSE) for documentation license terms.</sub>
